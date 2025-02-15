@@ -11,6 +11,8 @@ export default function TodoLists() {
   const [openModal, setOpenModal] = useState(false);
   const [taskToUpdate, setTaskToUpdate] = useState(null);
 
+  const reverseTask = [...task].reverse();
+
   function handleModalClose() {
     setOpenModal(false);
     setTaskToUpdate(null);
@@ -59,7 +61,7 @@ export default function TodoLists() {
         <h2 className="text-2xl font-bold">Projectify</h2>
         <div className="flex space-x-2">
           <button
-            className="flex items-center rounded-md bg-gray-700 px-4 py-2 text-white"
+            className="flex items-center rounded-md bg-gray-700 px-4 py-2 text-white cursor-pointer"
             onClick={() => setOpenModal(true)}
           >
             <svg
@@ -85,22 +87,22 @@ export default function TodoLists() {
       </div>
       <div className="-mx-2 mb-6 flex flex-wrap">
         <Todo
-          task={task}
+          task={reverseTask}
           onEditTask={handleEditTask}
           onDeleteTask={handleDeleteTask}
         />
         <OnProgress
-          task={task}
+          task={reverseTask}
           onEditTask={handleEditTask}
           onDeleteTask={handleDeleteTask}
         />
         <Done
-          task={task}
+          task={reverseTask}
           onEditTask={handleEditTask}
           onDeleteTask={handleDeleteTask}
         />
         <Revised
-          task={task}
+          task={reverseTask}
           onEditTask={handleEditTask}
           onDeleteTask={handleDeleteTask}
         />
