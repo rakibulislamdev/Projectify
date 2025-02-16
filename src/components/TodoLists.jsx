@@ -16,10 +16,19 @@ export default function TodoLists() {
     setTaskToUpdate(null);
   }
 
-  function handleCreateEditTask(event, newTask, isEdit) {
+  function handleCreateEditTask(event, newTask, isCreateTask) {
     event.preventDefault();
+    if (
+      newTask.taskName === "" ||
+      newTask.description === "" ||
+      newTask.dueDate === "" ||
+      newTask.category === ""
+    ) {
+      alert("Task fields cannot be empty");
+      return;
+    }
 
-    if (isEdit) {
+    if (isCreateTask) {
       setTask([...task, newTask]);
     } else {
       setTask(

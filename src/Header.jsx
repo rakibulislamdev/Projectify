@@ -2,19 +2,21 @@ import { useContext, useState } from "react";
 import { taskContext } from "./context";
 
 export default function Header() {
-  const [search, setSearch] = useState("");
-
   const { task, setTask } = useContext(taskContext);
+  const [originalTask] = useState(task);
 
   function handleSearch(e) {
     const searchValue = e.target.value;
-    setSearch(searchValue);
 
-    const filteredByTitle = task.filter((t) =>
-      t.taskName.toLowerCase().includes(searchValue.toLowerCase())
-    );
+    if (searchValue) {
+      const filteredByTitle = task.filter((t) =>
+        t.taskName.toLowerCase().includes(searchValue.toLowerCase())
+      );
 
-    setTask(filteredByTitle);
+      setTask(filteredByTitle);
+    } else {
+      setTask(originalTask);
+    }
   }
 
   return (
@@ -40,7 +42,6 @@ export default function Header() {
           type="text"
           placeholder="Search here"
           className="w-full max-w-xl rounded-full bg-gray-700 px-4 py-2 text-white focus:outline-none"
-          value={search}
           onChange={handleSearch}
         />
       </div>
