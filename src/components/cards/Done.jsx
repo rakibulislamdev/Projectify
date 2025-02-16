@@ -1,5 +1,11 @@
-export default function Done({ task, onEditTask, onDeleteTask }) {
-  const filteredDone = task.filter((task) => task.category === "Done");
+import { useContext } from "react";
+import { taskContext } from "../../context";
+
+export default function Done({ onEditTask, onDeleteTask }) {
+  const { task } = useContext(taskContext);
+  const filteredDone = [...task]
+    .reverse()
+    .filter((task) => task.category === "Done");
 
   return (
     <div className="mb-4 w-full px-2 sm:w-1/2 md:w-1/4">

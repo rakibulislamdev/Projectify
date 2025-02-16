@@ -1,24 +1,22 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Done from "./cards/Done";
 import OnProgress from "./cards/OnProgress";
 import Revised from "./cards/Revised";
 import Todo from "./cards/Todo";
-import { initialData } from "../data/Task";
 import Modal from "./modal/Modal";
+import { taskContext } from "../context";
 
 export default function TodoLists() {
-  const [task, setTask] = useState(initialData);
+  const { task, setTask } = useContext(taskContext);
   const [openModal, setOpenModal] = useState(false);
   const [taskToUpdate, setTaskToUpdate] = useState(null);
-
-  const reverseTask = [...task].reverse();
 
   function handleModalClose() {
     setOpenModal(false);
     setTaskToUpdate(null);
   }
 
-  function handleCreateTask(event, newTask, isEdit) {
+  function handleCreateEditTask(event, newTask, isEdit) {
     event.preventDefault();
 
     if (isEdit) {
@@ -52,7 +50,7 @@ export default function TodoLists() {
       {openModal && (
         <Modal
           onClose={handleModalClose}
-          onCreateTask={handleCreateTask}
+          onCreateTask={handleCreateEditTask}
           taskToUpdate={taskToUpdate}
         />
       )}
@@ -86,26 +84,13 @@ export default function TodoLists() {
         </div>
       </div>
       <div className="-mx-2 mb-6 flex flex-wrap">
-        <Todo
-          task={reverseTask}
-          onEditTask={handleEditTask}
-          onDeleteTask={handleDeleteTask}
-        />
+        <Todo onEditTask={handleEditTask} onDeleteTask={handleDeleteTask} />
         <OnProgress
-          task={reverseTask}
           onEditTask={handleEditTask}
           onDeleteTask={handleDeleteTask}
         />
-        <Done
-          task={reverseTask}
-          onEditTask={handleEditTask}
-          onDeleteTask={handleDeleteTask}
-        />
-        <Revised
-          task={reverseTask}
-          onEditTask={handleEditTask}
-          onDeleteTask={handleDeleteTask}
-        />
+        <Done onEditTask={handleEditTask} onDeleteTask={handleDeleteTask} />
+        <Revised onEditTask={handleEditTask} onDeleteTask={handleDeleteTask} />
       </div>
     </div>
   );

@@ -1,5 +1,11 @@
-export default function Todo({ task, onEditTask, onDeleteTask }) {
-  const filteredTodo = task.filter((task) => task.category === "To-Do");
+import { useContext } from "react";
+import { taskContext } from "../../context";
+
+export default function Todo({ onEditTask, onDeleteTask }) {
+  const { task } = useContext(taskContext);
+  const filteredTodo = [...task]
+    .reverse()
+    .filter((task) => task.category === "To-Do");
 
   return (
     <div className="mb-4 w-full px-2 sm:w-1/2 md:w-1/4">

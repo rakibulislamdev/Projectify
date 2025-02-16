@@ -1,5 +1,11 @@
-export default function Revised({ task, onEditTask, onDeleteTask }) {
-  const filteredRevised = task.filter((task) => task.category === "Revised");
+import { useContext } from "react";
+import { taskContext } from "../../context";
+
+export default function Revised({ onEditTask, onDeleteTask }) {
+  const { task } = useContext(taskContext);
+  const filteredRevised = [...task]
+    .reverse()
+    .filter((task) => task.category === "Revised");
 
   return (
     <div className="mb-4 w-full px-2 sm:w-1/2 md:w-1/4">

@@ -1,7 +1,11 @@
-export default function OnProgress({ task, onEditTask, onDeleteTask }) {
-  const filteredProgress = task.filter(
-    (task) => task.category === "On-Progress"
-  );
+import { useContext } from "react";
+import { taskContext } from "../../context";
+
+export default function OnProgress({ onEditTask, onDeleteTask }) {
+  const { task } = useContext(taskContext);
+  const filteredProgress = [...task]
+    .reverse()
+    .filter((task) => task.category === "On-Progress");
 
   return (
     <div className="mb-4 w-full px-2 sm:w-1/2 md:w-1/4">
